@@ -2,7 +2,7 @@
 commit.txt
 
 # workspaceいらん
-.idea/workspace.xml
+.idea/
 
 # 以下コピペ Python & JetBrains
 
