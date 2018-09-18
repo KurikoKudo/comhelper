@@ -3,13 +3,14 @@
 import subprocess
 import requests
 
-from ..slackbot_settings import API_TOKEN
+from slackbot_settings import API_TOKEN
 
 
 def download(channel, doc_name):
-    git_cmd = "git pull origin master"
+    git_cmd = "git pull origin download"
     git_cmd_return = subprocess.call(git_cmd.split())
 
+    # TODO: 実行環境のルーティングに変更する
     doc_path = 'docs/' + doc_name + '.md'
 
     if git_cmd_return != 0:

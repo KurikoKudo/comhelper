@@ -4,6 +4,9 @@ commit.txt
 # workspaceいらん
 .idea/
 
+# token入ってるので
+slackbot_settings.py
+
 # 以下コピペ Python & JetBrains
 
 # Byte-compiled / optimized / DLL files

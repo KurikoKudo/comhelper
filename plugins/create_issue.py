@@ -1,9 +1,6 @@
 # cording: utf-8
 
 import subprocess
-import requests
-
-from ..slackbot_settings import API_TOKEN
 
 
 def createIssue():

@@ -8,7 +8,10 @@ from .download import download
 @respond_to('を見せて')
 def mention_func(message):
 
-    doc_name = message.body.rstrip('を見せて')
+    doc_name = message.body['text'].rstrip('を見せて')
+
+    print(message.channel)
+    print(doc_name)
 
     download(message.channel, doc_name)
 
