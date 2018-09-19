@@ -10,8 +10,8 @@ def mention_func(message):
 
     doc_name = message.body['text'].rstrip('を見せて')
 
-    print(message.channel)
-    print(doc_name)
+    # print(message.channel)
+    # print(doc_name)
 
     download(message.channel, doc_name)
 
