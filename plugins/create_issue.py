@@ -3,11 +3,13 @@
 import subprocess
 
 
-def createIssue():
-    git_cmd = "git create issue -m '任意のissueタイトル'"
-    git_cmd_return = subprocess.call(git_cmd.split())
 
-    if git_cmd_return != 0:
-        return 'git create issue -m の実行でエラーが発生しました。'
-    else:
-        return 'issueリンク'
+def create_issue(issue_title):
+    git_cmd = "hub issue create -m " + issue_title
+
+    try:
+        git_cmd_return = subprocess.check_output(git_cmd.split())
+    except subprocess.CalledProcessError as e:
+        return 'hub issue create -m の実行でエラーが発生しました。'
+
+    return git_cmd_return
