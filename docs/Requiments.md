@@ -19,7 +19,7 @@ _任意の成果物のmdファイル_ をslackに投稿する
 
 | slackbot への指示 | bot によるコマンド発行  |
 | --- | --- |
-| @bot _仕様書第4版_ のIssueを作成して |  git create issue -m ' _仕様書第4版_ ' |
+| @bot _仕様書第4版_ のIssueを作成して |  hub create issue -m ' _仕様書第4版_ ' |
 
 ## 議論開始コマンド  
 
@@ -53,4 +53,4 @@ _任意のタイトル_ でプルリクエストを作成
 
 | slackbot への指示 | bot によるコマンド発行  |
 | --- | --- |
-| @bot _仕様書第4版_ のプルリクを作成して | git pull-request -m ' _仕様書第4版_ ' |
+| @bot _仕様書第4版_ のプルリクを作成して | hub pull-request -m ' _仕様書第4版_ ' |
