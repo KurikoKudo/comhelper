@@ -3,7 +3,6 @@
 import subprocess
 
 
-
 def create_issue(issue_title):
     git_cmd = "hub issue create -m " + issue_title
 

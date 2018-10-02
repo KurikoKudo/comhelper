@@ -5,6 +5,7 @@ from slackbot.bot import respond_to
 from .download import download
 from .create_issue import create_issue
 from .discussion import discussion
+from .create_pullrequest import create_pullrequest
 
 
 @respond_to('を見せて')
@@ -35,8 +36,10 @@ def mention_func(message):
     """
     プルリクエスト作成コマンド用メソッド
     """
-    message.send('プルリクのリンクを返す')
-    # TODO: git pull-request -m '任意のプルリクタイトル'
+    pr_title = message.body['text'].rstrip('のプルリクを作成して')
+
+    pr_link = create_pullrequest(pr_title)
+    message.send(pr_link)
 
 
 @respond_to('の議論を開始')
