@@ -4,6 +4,7 @@ from slackbot.bot import respond_to
 
 from .download import download
 from .create_issue import create_issue
+from .discussion import discussion
 
 
 @respond_to('を見せて')
@@ -41,17 +42,15 @@ def mention_func(message):
 @respond_to('の議論を開始')
 def mention_func(message):
     """
-    議論開始コマンド用メソッド
+    議論コマンド用メソッド
     """
     message.send('議論を開始してください')
     # TODO: 議論が開始されていない時はエラー
     # TODO: echo 'issue番号　任意の議論タイトル' > commit.txt
 
+    discussion_title = message.body['text'].rstrip('の議論を開始')
 
-@respond_to('議論を終了')
-def mention_func(message):
-    """
-    議論終了コマンド用メソッド
-    """
+    discussion(discussion_title)
+
     message.send('議論を終了するよ')
     # TODO: git commit --allow-empty -F commit.txt
