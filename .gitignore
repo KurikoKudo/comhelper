@@ -1,6 +1,9 @@
 # for commit message
 commit.txt
 
+# for users
+users.txt
+
 # workspaceいらん
 .idea/
 
