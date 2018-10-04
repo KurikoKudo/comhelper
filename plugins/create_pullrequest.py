@@ -3,12 +3,13 @@
 import subprocess
 
 
-def create_issue(issue_title):
-    git_cmd = "hub issue create -m " + issue_title
+def create_pullrequest(pr_title):
+
+    git_cmd = "hub pull-request -m " + pr_title
 
     try:
         git_cmd_return = subprocess.check_output(git_cmd.split())
     except subprocess.CalledProcessError as e:
-        return 'hub issue create -m の実行でエラーが発生しました。'
+        return 'hub pull-request -m の実行でエラーが発生しました。'
 
     return git_cmd_return
