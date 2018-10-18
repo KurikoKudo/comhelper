@@ -14,4 +14,10 @@ RUN pip3 install -r requirements.txt
 
 # （コンテナ内で作業する場合）必要なパッケージをインストール
 RUN apk update
-RUN apk add zsh vim tmux git tig
+RUN apk add zsh vim tmux git tig go
+
+# gitの設定
+RUN git config --global user.name "comhelper"
+RUN git config --global user.email comhelper2018@gmail.com
+
+ENTRYPOINT ["python3","run.py"]

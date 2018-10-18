@@ -12,7 +12,7 @@ def download(channel, doc_name):
     git_cmd_return = subprocess.call(git_cmd.split())
 
     # TODO: 実行環境のルーティングに変更する
-    doc_path = '/Users/kudoukuriko/python_app/comhelper/docs/' + doc_name + '.md'
+    doc_path = '/python_app/comhelper/docs/' + doc_name + '.md'
 
     if git_cmd_return != 0:
         logging.info('git pull origin master の実行でエラーが発生しました。')
