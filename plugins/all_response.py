@@ -17,7 +17,6 @@ def mention_func(message):
     doc_name = message.body['text'].rstrip('を見せて')
     download(message.channel, doc_name)
 
-
     message.send(doc_name + 'を投稿したよ')
 
 
@@ -53,7 +52,7 @@ def mention_func(message):
     message.send('上記のメンバーでユーザー情報を更新したよ！')
 
 
-@respond_to('の議論を開始')
+@respond_to('の議論を開始して')
 def mention_func(message):
     """
     議論コマンド用メソッド

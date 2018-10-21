@@ -28,6 +28,9 @@ def loop():
     client = SlackClient(API_TOKEN)
     user_dict = get_user_dict()
 
+    keys = [k for k, v in user_dict.items() if v == 'comhelper']
+    comhelper_user_id = keys[0]
+
     while True:
         events = SlackClient.rtm_read(client)
 
@@ -37,7 +40,7 @@ def loop():
             if event_type == 'message':
                 message_text = event.get('text')
 
-                if message_text == "議論を終了":
+                if message_text == '<@' + comhelper_user_id + "> 議論を終了して":
                     return '議論を終了しました！'
                 else:
                     send_user_id = event.get('user')
