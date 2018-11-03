@@ -1,4 +1,4 @@
-# cording: utf-8
+# coding: utf-8
 
 import subprocess
 import time
@@ -41,7 +41,7 @@ def loop():
                 message_text = event.get('text')
 
                 if message_text == '<@' + comhelper_user_id + "> 議論を終了して":
-                    return '議論を終了しました！'
+                    return '議論を終了しました！\n次の議論開始前にコミットしてください。'
                 else:
                     send_user_id = event.get('user')
                     send_user_name = user_dict[send_user_id]
@@ -49,32 +49,11 @@ def loop():
                     add_commit_message.append('echo "' + send_user_name + ': ' + message_text + '" >> commit.txt')
                     try:
                         cmd_return = subprocess.run(add_commit_message, shell=True)
-                    except subprocess.SubprocessError as e:
+                    except subprocess.SubprocessError:
                         return 'echo >> commit.txt の実行でエラーが発生しました。'
 
         time.sleep(1)
 
-
-def push_discussion():
-    git_add_cmd = 'git add --all'
-    try:
-        git_cmd_return = subprocess.run(shlex.split(git_add_cmd))
-    except subprocess.CalledProcessError:
-        return 'add コマンドでエラーが起きました'
-
-    git_commit_cmd = 'git commit --allow-empty -F commit.txt'
-    try:
-        git_cmd_return = subprocess.run(shlex.split(git_commit_cmd))
-    except subprocess.CalledProcessError:
-        return 'commit コマンドでエラーが起きました'
-
-    git_push_cmd = 'git push origin comhelper'
-    try:
-        git_cmd_return = subprocess.run(shlex.split(git_push_cmd))
-    except subprocess.CalledProcessError:
-        return 'push コマンドでエラーが起きました'
-
-    return 'comhelper ブランチへの push が完了しました。'
 
 
 

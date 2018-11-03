@@ -1,16 +1,19 @@
 # coding: utf-8
 
 from slackbot.bot import respond_to
+from requests import get
 
 from .download import download
 from .create_issue import create_issue
-from .discussion import discussion, loop, push_discussion
+from .discussion import discussion, loop
 from .create_pullrequest import create_pullrequest
 from .check_users import check_all_users_by_slack
+from .commit import commit
+from slackbot_settings import USER_TOKEN, WORKING_DIRECTORY
 
 
 @respond_to('を見せて')
-def mention_func(message):
+def mention_download(message):
     """
     成果物ダウンロードコマンド用メソッド
     """
@@ -21,7 +24,7 @@ def mention_func(message):
 
 
 @respond_to('のIssueを作成して')
-def mention_func(message):
+def mention_issue(message):
     """
     Issue作成コマンド用メソッド
     """
@@ -32,7 +35,7 @@ def mention_func(message):
 
 
 @respond_to('のプルリクを作成して')
-def mention_func(message):
+def mention_pr(message):
     """
     プルリクエスト作成コマンド用メソッド
     """
@@ -43,7 +46,7 @@ def mention_func(message):
 
 
 @respond_to('ユーザー情報を確認して')
-def mention_func(message):
+def mention_user(message):
     """
     ユーザー情報確認コマンド用メソッド
     """
@@ -53,7 +56,7 @@ def mention_func(message):
 
 
 @respond_to('の議論を開始して')
-def mention_func(message):
+def mention_discussion(message):
     """
     議論コマンド用メソッド
     """
@@ -66,8 +69,44 @@ def mention_func(message):
 
         message.send(loop_return)
 
-        push_status = push_discussion()
-        message.send(push_status)
-
     else:
         message.send('echo > commit.txt の実行でエラーが発生しました。')
+
+
+@respond_to('コミットして')
+def mention_commit(message):
+    """
+    コミットコマンド用メソッド
+    """
+    message_body = message.body
+    path = WORKING_DIRECTORY + '/docs/'
+
+    if 'files' in message_body.keys():
+        file_names = []
+        for file in message_body['files']:
+            file_names.append(file['name'])
+            url_private = file['url_private']
+
+            f = open(path + file['name'], mode='w', encoding='utf-8')
+            resp = get(url_private, headers={'Authorization': 'Bearer %s' % USER_TOKEN}, stream=True)
+
+            f.write(resp.text)
+
+            f.close()
+
+        for file_name in file_names:
+            message.send(file_name)
+        message.send('の編集をコミットします！')
+
+    commit_return = commit()
+
+    message.send(commit_return)
+
+
+
+
+
+
+
+
+

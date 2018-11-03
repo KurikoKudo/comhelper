@@ -1,6 +1,10 @@
 # for commit message
 commit.txt
 
+# hubコマンドバイナリ
+hub-linux-amd64-2.5.1.tgz
+hub-linux-amd64-2.5.1/
+
 # for users
 users.txt
 
