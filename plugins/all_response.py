@@ -70,7 +70,7 @@ def mention_discussion(message):
         message.send(loop_return)
 
     else:
-        message.send('echo > commit.txt の実行でエラーが発生しました。')
+        message.send('すでに議論が開始されているようです...\n終了してから議論を行なってください！')
 
 
 @respond_to('コミットして')

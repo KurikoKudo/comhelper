@@ -12,6 +12,9 @@ ADD requirements.txt $project_dir
 WORKDIR $project_dir
 RUN pip3 install -r requirements.txt
 
+# コミット用のテキストファイルの生成
+RUN touch commit.txt
+
 # （コンテナ内で作業する場合）必要なパッケージをインストール
 RUN apt-get update
 RUN apt-get install bash

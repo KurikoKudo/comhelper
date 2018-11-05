@@ -2,7 +2,6 @@
 
 import subprocess
 import shlex
-from time import sleep
 
 from slackbot_settings import WORKING_DIRECTORY
 
@@ -32,6 +31,12 @@ def commit():
         git_cmd_return = subprocess.run(shlex.split(git_push_cmd), cwd=WORKING_DIRECTORY)
     except subprocess.CalledProcessError:
         return 'push コマンドでエラーが起きました'
+
+    cmd = "rm commit.txt && touch commit.txt"
+    try:
+        cmd_return = subprocess.run(shlex.split(cmd), cwd="/python_app/comhelper/")
+    except subprocess.CalledProcessError:
+        return 'ファイル操作コマンドでエラーが起きました'
 
     return 'comhelper ブランチへの push が完了しました。'
 

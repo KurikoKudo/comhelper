@@ -11,6 +11,13 @@ from .check_users import get_user_dict
 
 def discussion(discussion_title):
 
+    # fileが空であるかの確認
+    file = open('commit.txt', mode='r', encoding='utf-8')
+    file.seek(0)
+    first_char = file.read(1)
+    if first_char:
+        return False
+
     cmd = []
     cmd.append('echo "' + discussion_title + '" > commit.txt')
 
