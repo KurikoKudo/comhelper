@@ -38,7 +38,9 @@ def loop():
     keys = [k for k, v in user_dict.items() if v == 'comhelper']
     comhelper_user_id = keys[0]
 
-    while True:
+    return_flag = True
+
+    while return_flag:
         events = SlackClient.rtm_read(client)
 
         for event in events:
@@ -48,7 +50,7 @@ def loop():
                 message_text = event.get('text')
 
                 if message_text == '<@' + comhelper_user_id + "> 議論を終了して":
-                    return '議論を終了しました！\n次の議論開始前にコミットしてください。'
+                    return_flag = False
                 else:
                     send_user_id = event.get('user')
                     send_user_name = user_dict[send_user_id]
@@ -60,6 +62,8 @@ def loop():
                         return 'echo >> commit.txt の実行でエラーが発生しました。'
 
         time.sleep(1)
+
+    return '議論を終了しました！\n次の議論開始前にコミットしてください。'
 
 
 

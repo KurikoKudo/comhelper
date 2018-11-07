@@ -32,7 +32,13 @@ def commit():
     except subprocess.CalledProcessError:
         return 'push コマンドでエラーが起きました'
 
-    cmd = "rm commit.txt && touch commit.txt"
+    cmd = "rm commit.txt"
+    try:
+        cmd_return = subprocess.run(shlex.split(cmd), cwd="/python_app/comhelper/")
+    except subprocess.CalledProcessError:
+        return 'ファイル操作コマンドでエラーが起きました'
+
+    cmd = "touch commit.txt"
     try:
         cmd_return = subprocess.run(shlex.split(cmd), cwd="/python_app/comhelper/")
     except subprocess.CalledProcessError:
