@@ -6,7 +6,7 @@ from slackbot_settings import USER_TOKEN
 
 def check_all_users_by_slack():
     """
-    slackAPIからユーザ情報を取得し、ユーザリストを更新するメソッド
+    slackAPIからユーザ情報を取得し、ユーザリストを更新する関数
     :return: users list
     """
     param = {
@@ -30,6 +30,7 @@ def check_all_users_by_slack():
 
     file = open('users.txt', mode='w')
     file.write(update_txt)
+    file.close()
 
     return return_txt
 

@@ -15,7 +15,7 @@ from slackbot_settings import USER_TOKEN, WORKING_DIRECTORY
 @respond_to('を見せて')
 def mention_download(message):
     """
-    成果物ダウンロードコマンド用メソッド
+    成果物ダウンロードコマンド用関数
     """
     doc_name = message.body['text'].rstrip('を見せて')
     download(message.channel, doc_name)
@@ -26,7 +26,7 @@ def mention_download(message):
 @respond_to('のIssueを作成して')
 def mention_issue(message):
     """
-    Issue作成コマンド用メソッド
+    Issue作成コマンド用関数
     """
     issue_title = message.body['text'].rstrip('のIssueを作成して')
 
@@ -37,7 +37,7 @@ def mention_issue(message):
 @respond_to('のプルリクを作成して')
 def mention_pr(message):
     """
-    プルリクエスト作成コマンド用メソッド
+    プルリクエスト作成コマンド用関数
     """
     pr_title = message.body['text'].rstrip('のプルリクを作成して')
 
@@ -48,7 +48,7 @@ def mention_pr(message):
 @respond_to('ユーザー情報を確認して')
 def mention_user(message):
     """
-    ユーザー情報確認コマンド用メソッド
+    ユーザー情報確認コマンド用関数
     """
     users = check_all_users_by_slack()
     message.send(users)
@@ -58,7 +58,7 @@ def mention_user(message):
 @respond_to('の議論を開始して')
 def mention_discussion(message):
     """
-    議論コマンド用メソッド
+    議論コマンド用関数
     """
     discussion_title = message.body['text'].rstrip('の議論を開始')
     discussion_process_ready = discussion(discussion_title)
@@ -76,20 +76,26 @@ def mention_discussion(message):
 @respond_to('コミットして')
 def mention_commit(message):
     """
-    コミットコマンド用メソッド
+    コミットコマンド用関数
     """
     message_body = message.body
     path = WORKING_DIRECTORY + '/docs/'
 
+    #　ファイルが添付されているかどうか確認
     if 'files' in message_body.keys():
         file_names = []
         for file in message_body['files']:
             file_names.append(file['name'])
+
+            # ファイルが提供されているURLを取得
             url_private = file['url_private']
 
             f = open(path + file['name'], mode='w', encoding='utf-8')
+
+            # URLからファイルを取得
             resp = get(url_private, headers={'Authorization': 'Bearer %s' % USER_TOKEN}, stream=True)
 
+            # 取得したファイルで既存ファイルを上書き
             f.write(resp.text)
 
             f.close()

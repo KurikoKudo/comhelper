@@ -21,6 +21,7 @@ def discussion(discussion_title):
     cmd = []
     cmd.append('echo "' + discussion_title + '" > commit.txt')
 
+    # commit.txtを作成
     try:
         cmd_return = subprocess.run(cmd, shell=True)
     except subprocess.SubprocessError as e:
@@ -31,8 +32,12 @@ def discussion(discussion_title):
 
 
 def loop():
+    """
+    議論終了コマンドが送信されるまでメッセージの書き出しを行う関数
+    """
 
     client = SlackClient(API_TOKEN)
+    # ユーザーidからユーザー名を取得するため
     user_dict = get_user_dict()
 
     keys = [k for k, v in user_dict.items() if v == 'comhelper']
@@ -40,6 +45,7 @@ def loop():
 
     return_flag = True
 
+    # 議論終了コマンドが送信されるまでループを続ける
     while return_flag:
         events = SlackClient.rtm_read(client)
 
@@ -50,8 +56,10 @@ def loop():
                 message_text = event.get('text')
 
                 if message_text == '<@' + comhelper_user_id + "> 議論を終了して":
+                    # 議論終了コマンドが送信されたらループを抜ける
                     return_flag = False
                 else:
+                    # ユーザー名を確認しつつ，メッセージをテキストファイルに一時保存
                     send_user_id = event.get('user')
                     send_user_name = user_dict[send_user_id]
                     add_commit_message = []

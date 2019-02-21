@@ -12,7 +12,7 @@ def commit():
     try:
         git_pull_cmd_return = subprocess.call(shlex.split(git_pull_cmd), cwd=WORKING_DIRECTORY)
     except subprocess.CalledProcessError:
-        return 'add コマンドでエラーが起きました'
+        return 'pull コマンドでエラーが起きました'
 
     git_add_cmd = 'git add .'
     try:

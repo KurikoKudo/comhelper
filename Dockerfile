@@ -25,12 +25,14 @@ RUN apt-get install tar
 RUN git config --global user.name "comhelper"
 RUN git config --global user.email comhelper2018@gmail.com
 
+# hubコマンドのインストール
 RUN tar -xvf hub-linux-amd64-2.5.1.tgz
 RUN cp hub-linux-amd64-2.5.1/bin/hub /usr/local/bin/
 
+# GitHubのリモートリポジトリのクローン
 # RUN git clone https://comhelper:comh2018@github.com/HazeyamaLab/SE18G1.git
 # RUN git clone https://comhelper:comh2018@github.com/HazeyamaLab/SE18G2.git
-RUN git clone https://comhelper:comh2018@github.com/HazeyamaLab/comhelper-test.git
+RUN git clone https://comhelper:comh2018@github.com/KurikoKudo/comhelper-test.git
 
 RUN mkdir /python_app/git
 RUN mv /python_app/comhelper/comhelper-test /python_app/git
